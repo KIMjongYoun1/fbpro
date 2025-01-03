@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fbpro.dao.UserDAO">
+
+    <!-- 전체 유저 조회 -->
+    <select id="findAllUsers" resultType="fbpro.vo.UserVO">
+        SELECT user_id, full_name, password, email, role_code, created_at
+        FROM users
+    </select>
+
+    <!-- ID로 사용자 조회 -->
+    <select id="findUserById" parameterType="String" resultType="fbpro.vo.UserVO">
+        SELECT user_id, full_name, password, email, role_code, created_at
+        FROM users
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 사용자 추가 -->
+    <insert id="insertUser" parameterType="fbpro.vo.UserVO">
+        INSERT INTO users (user_id, full_name, password, email, role_code)
+        VALUES (#{userId}, #{fullName}, #{password}, #{email}, #{roleCode})
+    </insert>
+
+    <!-- 사용자 업데이트 -->
+    <update id="updateUser" parameterType="fbpro.vo.UserVO">
+        UPDATE users
+        SET full_name = #{fullName}, password = #{password}, email = #{email}, role_code = #{roleCode}
+        WHERE user_id = #{userId}
+    </update>
+
+    <!-- 사용자 삭제 -->
+    <delete id="deleteUser" parameterType="String">
+        DELETE FROM users WHERE user_id = #{userId}
+    </delete>
+
+</mapper>
