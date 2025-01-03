@@ -44,7 +44,7 @@
 - **용도**: 사용자의 근무 일정을 관리하는 테이블입니다. 각 일정은 특정 날짜와 시간에 대한 정보를 포함하고 있으며, 해당 일정은 사용자의 역할에 따라 추가, 수정, 삭제가 가능합니다.
 - **컬럼**:
   - `schedule_id`: 스케줄 고유 ID
-  - `user_id`: 사용자의 ID (외래키)
+  - `user_id`: 사용자의 ID 
   - `start_time`: 근무 시작 시간
   - `end_time`: 근무 종료 시간
   - `shift_type`: 근무 유형 (예: 오전, 오후)
@@ -53,7 +53,7 @@
 - **용도**: 스케줄에 포함된 작업을 관리하는 테이블입니다. 각 근무 시간 동안 수행할 작업이 기록됩니다.
 - **컬럼**:
   - `task_id`: 작업 고유 ID
-  - `schedule_id`: 스케줄 ID (외래키)
+  - `schedule_id`: 스케줄 ID 
   - `task_description`: 작업 내용
   - `status`: 작업 상태 (예: 완료, 미완료)
 
@@ -61,15 +61,15 @@
 - **용도**: 사용자와 관련된 모든 변경 이력을 저장하는 테이블입니다. 사용자의 정보 수정, 삭제 등 중요한 변경 사항이 이 테이블에 기록됩니다.
 - **컬럼**:
   - `change_id`: 변경 이력 고유 ID
-  - `user_id`: 사용자 ID (외래키)
+  - `user_id`: 사용자 ID 
   - `change_type`: 변경 유형 (예: 수정, 삭제)
   - `change_description`: 변경된 내용
   - `change_date`: 변경 일시
 
 ## 기술 스택
 
-- **Backend**: Spring Boot, MyBatis
-- **Frontend**: Vue.js
+- **Backend**: Spring Boot, MyBatis, Java
+- **Frontend**: Vue.js(진행예정)
 - **Database**: MariaDB
 - **기타**: RESTful API, Maven, Git
 
