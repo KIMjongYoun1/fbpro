@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="fbpro.dao.ShiftTypeDAO">
+
+	<!-- 근무 유형 추가 -->
+	<insert id="insertShiftType">
+		INSERT INTO shift_types (shift_code, start_time, end_time, description)
+		VALUES (#{shiftCode}, #{startTime}, #{endTime}, #{description})
+	</insert>
+
+
+	<!-- 모든 근무 유형 조회 -->
+	<select id="getAllShiftType" resultType="fbpro.vo.ShiftTypeVO">
+		SELECT shift_code AS
+		shiftCode, start_time AS startTime, end_time AS endTime, description
+		FROM shift_types
+	</select>
+
+</mapper>
