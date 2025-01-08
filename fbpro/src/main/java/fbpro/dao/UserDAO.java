@@ -16,7 +16,7 @@ public interface UserDAO {
 	public UserVO findUserById(String userId);
 	
 	//사용자 추가
-	public UserVO insertUser(UserVO user);
+	public void insertUser(UserVO user);
 	
 	//사용자 업데이트
 	public UserVO upDateUser(UserVO user);

@@ -1,40 +1,53 @@
 <template>
+  <form @submit.prevent="handleSubmit">
     <div>
-      <h2>사용자 추가</h2>
-      <form @submit.prevent="submitForm">
-        <input v-model="user.name" placeholder="이름" />
-        <input v-model="user.email" placeholder="이메일" />
-        <button type="submit">저장</button>
-      </form>
+      <label for="userId">로그인 ID</label>
+      <input id="userId" v-model="form.userId" placeholder="Id를 입력하세요" required />
     </div>
-  </template>
-  
-  <script>
-  export default {
-    data() {
-      return {
-        user: {
-          name: '',
-          email: ''
-        }
-      };
+    <div>
+      <label for="name">이름</label>
+      <input id="name" v-model="form.fullName" placeholder="이름" />
+    </div>
+    <div>
+      <label for="email">이메일</label>
+      <input id="email" v-model="form.email" type="email" placeholder="이메일" />
+    </div>
+    <div>
+      <label for="password">비밀번호</label>
+      <input id="password" v-model="form.password" type="password" placeholder="비밀번호입력" required />
+    </div>
+    <button type="submit">{{ submitLabel }}</button>
+  </form>
+</template>
+
+<script>
+export default {
+  props: {
+    initialData: {
+      type: Object,
+      default: () => ({
+        user_id: '',
+        full_name: '',
+        email: '',
+        password: '',
+      }),
     },
-    methods: {
-      async submitForm() {
-        try {
-          const response = await fetch('/users', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(this.user)
-          });
-          if (response.ok) {
-            this.$router.push('/user-list');  // 사용자 목록 페이지로 리디렉션
-          }
-        } catch (error) {
-          console.error("Error:", error);
-        }
-      }
+    submitLabel: {
+      type: String,
+      default: '저장'
     }
-  };
-  </script>
-  
+  },
+  data() {
+    return {
+      form: { ...this.initialData },  // form을 initialData로 초기화
+    };
+  },
+  methods: {
+    handleSubmit() {
+      this.$emit('submit', this.form);  // 부모 컴포넌트로 데이터 전달
+      // 폼 제출 후 초기화
+      this.form = { user_id: '', full_name: '', email: '', password: '' };
+    }
+  }
+};
+</script>
