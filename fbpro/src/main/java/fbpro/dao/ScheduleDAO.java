@@ -9,8 +9,10 @@ import fbpro.vo.ScheduleVO;
 @Mapper
 public interface ScheduleDAO {
 	
+	
+	
 	// 전체 스케쥴 조회
-	public List<ScheduleVO> getAllSchedules();
+	public List<String> getAllSchedules();
 	
 	// 특정 스케쥴 조회
 	public List<ScheduleVO> getSchedulesByUserId(String userId);
@@ -23,5 +25,8 @@ public interface ScheduleDAO {
 	
 	// 스케쥴 삭제
 	public void deleteSchedule(String scheduleCode);
+	
+	//스케쥴조회
+	public List<ScheduleVO> getSchedulesWithDetails(String userId);
 	
 }

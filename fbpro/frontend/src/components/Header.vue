@@ -6,6 +6,8 @@
                 <li><router-link to="/schedule">Schedule</router-link></li>
                 <li><router-link to="/users">Users</router-link></li>
                 <li><router-link to="/schedule-manager">schedule-manager</router-link></li>
+                <li><router-link to="/schedule/add">AdminScheduleInput</router-link></li>
+                <li><router-link to="/shift-types/all">shift-types</router-link></li>
             </ul>
         </nav>
     </header>

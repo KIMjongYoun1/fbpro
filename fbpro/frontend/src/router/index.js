@@ -8,9 +8,29 @@ import UserList from '../components/UserList.vue';  // 상대 경로 수정
 import ScheduleManager from '../components/ScheduleManager.vue';
 import Register from '../components/Register.vue'; // 상대 경로로 임포트
 import login from '../components/Login.vue'; // 상대 경로로 임포트
+import AdminScheduleInput from "../components/AdminScheduleInput.vue"; // 상대 경로
+import ScheduleCodeList from "../components/ScheduleCodeList.vue";
+import ShiftList from "../components/ShiftList.vue";
+
+
 
 
 const routes = [
+  {
+    path:"/shift-types/all",
+    name: "shift-types/all",
+    component: ShiftList,
+  },
+  {
+    path: "/schedule/code",
+    name: "ScheduleCodeList",
+    component: ScheduleCodeList,
+  },
+  {
+    path: "/schedule/add", // URL 경로
+    name: "ScheduleAdd", // 라우터 이름 (선택사항)
+    component: AdminScheduleInput, // 렌더링할 컴포넌트
+  },
   {
     path: '/login',
     name: 'loginForm',

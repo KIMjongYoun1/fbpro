@@ -16,4 +16,11 @@
 		FROM shift_types
 	</select>
 
+	<!-- 모든 근무 유형 조회 -->
+	<select id="findAllShiftType" resultType="fbpro.vo.ShiftTypeVO">
+		SELECT shift_code AS
+		shiftCode, start_time AS startTime, end_time AS endTime, description
+		FROM shift_types
+	</select>
+
 </mapper>

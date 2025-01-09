@@ -2,42 +2,52 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="fbpro.dao.ScheduleDAO">
 
-	<!-- 전체 스케쥴 조회 -->
+	<!--스케쥴 조회 -->
 	<select id="getAllSchedules" resultType="fbpro.vo.ScheduleVO">
+    SELECT s.schedule_code, u.name AS user_name
+    FROM schedules s
+    JOIN users u ON s.user_id = u.user_id
+</select>
 
-		SELECT * FROM schedules
 
-	</select>
-
-	<!-- 특정 스케쥴 조회 -->
-	<select id="getScheduleByUserId"
-		resultType="fbpro.vo.ScheduleVO">
-		SELECT * FROM schedules WHERE user_id = #{userId}
-
-	</select>
 
 	<!-- 스케쥴 추가 -->
 	<insert id="insertSchedule">
-		INSERT INTO schedules (schedule_code, user_id, shift_code, start_time,
-		end_time, created_at)
-		VALUES (#{scheduleCode}, #{userId}, #{shiftCode}, #{startTime}, #{endTime},
+		INSERT INTO schedules (schedule_code, user_id,
+		shift_code,created_at)
+		VALUES (#{scheduleCode}, #{userId},
+		#{shiftCode},
 		#{createdAt})
 	</insert>
+
+	<!-- 스케쥴 조회 -->
+	<select id="getSchedulesWithDetails" parameterType="string"
+		resultType="fbpro.vo.ScheduleVO">
+		SELECT s.schedule_code, s.user_id, s.shift_code,
+		t.start_time, t.end_time, s.created_at
+		FROM schedules s
+		JOIN shift_types
+		t ON s.shift_code = t.shift_code
+		WHERE s.user_id = #{userId}
+	</select>
 
 	<!-- 스케쥴 업데이트 -->
 	<update id="updateSchedule">
 		UPDATE schedules
 		SET user_id =#{userId},
-		shift_code = #{shiftCode},
+		shift_code =
+		#{shiftCode},
 		start_time =
 		#{startTime},
 		end_time = #{endTime}
-		WHERE schedule_code = #{scheduleCode}
+		WHERE
+		schedule_code = #{scheduleCode}
 
 	</update>
 
 	<delete id="deleteSchedule">
-		DELETE FROM schedules WHERE schedule_code = #{scheduleCode}
+		DELETE FROM schedules WHERE schedule_code =
+		#{scheduleCode}
 	</delete>
 
 </mapper>

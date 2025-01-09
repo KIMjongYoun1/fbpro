@@ -21,4 +21,8 @@ public class ShiftTypeService {
 	public List<ShiftTypeVO> getAllShiftType() {
 		return shiftTypeDAO.getAllShiftType();
 	}
+	
+	public List<ShiftTypeVO> findAllShiftType(){
+		return shiftTypeDAO.findAllShiftType();
+	}
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fbpro.service.ShiftTypeService;
 import fbpro.vo.ShiftTypeVO;
-
+@CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/api/shift-types")
 public class ShiftController {
@@ -23,10 +24,20 @@ public class ShiftController {
 
 	@GetMapping
 	public ResponseEntity<List<ShiftTypeVO>> getAllShiftType() {
+		System.out.println("Shift types 요청이 들어왔습니다.(근무추가)");
 		List<ShiftTypeVO> shiftTypes = shiftTypeService.getAllShiftType();
 		return ResponseEntity.ok(shiftTypes);
 	}
 
+	// 서비스에서 반환하는 값이 List<String>이라면
+	@GetMapping("/all")
+	public ResponseEntity<List<ShiftTypeVO>> findAllShiftType() {
+	    System.out.println("Shift types 요청이 들어왔습니다.(근무배정)");
+	    List<ShiftTypeVO> shiftTypes = shiftTypeService.findAllShiftType(); // 반환 타입 확인
+	    return ResponseEntity.ok(shiftTypes); // 데이터를 반환
+	}
+
+	
 	@PostMapping
 	public ResponseEntity<String> addShiftType(@RequestBody ShiftTypeVO shiftType) {
 		System.out.println("Received ShiftType: " + shiftType.getShiftCode()); // 제대로 받은 값 확인

@@ -14,4 +14,6 @@ public interface ShiftTypeDAO {
 	
 	public List<ShiftTypeVO> getAllShiftType();
 	
+	public List<ShiftTypeVO> findAllShiftType();
+	
 }
