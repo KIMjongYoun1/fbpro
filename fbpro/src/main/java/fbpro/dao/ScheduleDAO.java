@@ -1,6 +1,7 @@
 package fbpro.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -9,7 +10,8 @@ import fbpro.vo.ScheduleVO;
 @Mapper
 public interface ScheduleDAO {
 	
-	
+	// 배정 스케쥴 캘린더
+	public List<Map<String, Object>> getSchedulesForCalendear();
 	
 	// 전체 스케쥴 조회
 	public List<String> getAllSchedules();

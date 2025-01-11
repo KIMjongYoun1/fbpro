@@ -4,10 +4,23 @@
 
 	<!--스케쥴 조회 -->
 	<select id="getAllSchedules" resultType="fbpro.vo.ScheduleVO">
-    SELECT s.schedule_code, u.name AS user_name
-    FROM schedules s
-    JOIN users u ON s.user_id = u.user_id
-</select>
+		SELECT s.schedule_code, u.name AS user_name
+		FROM schedules s
+		JOIN users u ON s.user_id = u.user_id
+	</select>
+
+	<select id="getSchedulesForCalendear" resultType="map">
+		SELECT
+		s.schedule_code AS scheduleCode,
+		s.user_id AS userId,
+
+		st.shift_code AS shiftCode,
+
+		DATE_FORMAT(s.created_at, '%Y-%m-%d') AS createdAt
+		FROM schedules s
+		JOIN shift_types st ON s.shift_code = st.shift_code
+		JOIN users u ON s.user_id = u.user_id;
+	</select>
 
 
 

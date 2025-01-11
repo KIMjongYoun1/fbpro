@@ -1,6 +1,7 @@
 package fbpro.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import fbpro.service.ScheduleService;
 import fbpro.vo.ScheduleVO;
+
 @CrossOrigin(origins = "http://localhost:8080")
 @RestController
 @RequestMapping("/schedule")
@@ -38,16 +40,23 @@ public class ScheduleController {
 		return ResponseEntity.ok(schedules);
 	}
 
-	 @PostMapping("/add") // /api/schedule/add 경로로 요청을 받음
-	    public ResponseEntity<String> insertSchedule(@RequestBody ScheduleVO schedule) {
-		 	System.out.println("스케쥴이 추가 되었습니다");
-	        try {
-	            scheduleService.insertSchedule(schedule);
-	            return ResponseEntity.ok("스케줄이 추가되었습니다.");
-	        } catch (Exception e) {
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스케줄 배정 실패");
-	        }
-	    }
+	@PostMapping("/add") // /api/schedule/add 경로로 요청을 받음
+	public ResponseEntity<String> insertSchedule(@RequestBody ScheduleVO schedule) {
+		System.out.println("스케쥴이 추가 되었습니다");
+		try {
+			scheduleService.insertSchedule(schedule);
+			return ResponseEntity.ok("스케줄이 추가되었습니다.");
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("스케줄 배정 실패");
+		}
+	}
+
+	// 스케줄 배정 조회
+	@GetMapping("/List")
+	public List<Map<String, Object>> getSchdulesForCalendar() {
+		System.out.println("배정리스트 조회 호출");
+		return scheduleService.getSchedulesForCalendar();
+	}
 
 	@PutMapping("/{scheduleCode}")
 	public String updateSchedule(@PathVariable String scheduleCode, @RequestBody ScheduleVO schedule) {
