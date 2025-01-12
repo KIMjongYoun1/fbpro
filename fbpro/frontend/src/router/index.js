@@ -32,12 +32,12 @@ const routes = [
     component: AdminScheduleInput, // 렌더링할 컴포넌트
   },
   {
-    path: '/login',
+    path: '/users/login',
     name: 'loginForm',
     component: login // 로그인 페이지
   },
   {
-    path: '/register',
+    path: '/users/register',
     name: 'RegisterPage',
     component: Register // 회원가입 페이지
   },

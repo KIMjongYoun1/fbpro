@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import fbpro.service.UserService;
+import fbpro.utill.JwtUtil;
 import fbpro.vo.UserVO;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -24,12 +25,14 @@ import fbpro.vo.UserVO;
 @RequestMapping("/api/users")
 public class UserController {
 
+	private final JwtUtil jwtUtil; // JwtUtil을 주입받기
 	private final UserService userService;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService, JwtUtil jwtUtil) {
 
 		this.userService = userService;
+		this.jwtUtil = jwtUtil;
 	}
 
 	// 유저 전체조회
@@ -59,24 +62,43 @@ public class UserController {
 	// 로그인
 	@PostMapping("/login")
 	public ResponseEntity<?> loginUser(@RequestBody Map<String, String> loginData) {
-		
-		String userId = loginData.get("userId");
-		String password = loginData.get("password");
-		
-		System.out.println("Received login request: userId=" + userId + ", password=" + password);  // 로그 찍기
+	    System.out.println("로그인 요청이 들어왔습니다.");
+	    String userId = loginData.get("userId");
+	    String password = loginData.get("password");
 
-		try {
-			UserVO user = userService.authenticateUser(userId, password);
-			if (user != null) {
-				return ResponseEntity.ok(user);
-			} else {
-				return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("잘못된사용자");
-			}
-		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버에러" + e.getMessage());
-			
-		}
+	    try {
+	        UserVO user = userService.authenticateUser(userId, password); // 인증 처리
+	        if (user != null) {
+	            String token = jwtUtil.generateToken(userId);
+	            return ResponseEntity.ok().body("Bearer " + token);
+	        } else {
+	            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("잘못된 사용자");
+	        }
+	    } catch (Exception e) {
+	        // 예외 로그 출력
+	        e.printStackTrace();
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
+	    }
 	}
+	
+//    @PostMapping("/login")
+//    public ResponseEntity<String> loginUser(@RequestBody Map<String, String> loginData) {
+//        String userId = loginData.get("userId");
+//        String password = loginData.get("password");
+//
+//        System.out.println("로그인 요청이 들어왔습니다.");
+//        // 로그인 처리 부분 (사용자 인증, DB 조회 등)
+//        if ("Crooked".equals(userId) && "Crooked123".equals(password)) {
+//            // JWT 토큰 생성
+//            String token = jwtUtil.generateToken(userId);
+//            return ResponseEntity.ok("Bearer " + token); // 토큰을 반환
+//        } else {
+//            return ResponseEntity.status(401).body("잘못된 사용자");
+//        }
+//    }
+
+
+
 
 	// 유저정보 업데이트
 	@PutMapping("/{userId}")
