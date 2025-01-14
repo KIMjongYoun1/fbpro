@@ -43,6 +43,17 @@
 		t ON s.shift_code = t.shift_code
 		WHERE s.user_id = #{userId}
 	</select>
+	
+	   <!-- 스케줄 상세 조회 -->
+    <select id="getScheduleByCode" parameterType="String" resultType="fbpro.vo.ScheduleVO">
+        SELECT 
+            schedule_code AS scheduleCode,
+            user_id AS userId,
+            shift_code AS shiftCode,
+            created_at AS createdAt
+        FROM schedules 
+        WHERE schedule_code = #{scheduleCode}
+    </select>
 
 	<!-- 스케쥴 업데이트 -->
 	<update id="updateSchedule">
@@ -61,6 +72,7 @@
 	<delete id="deleteSchedule">
 		DELETE FROM schedules WHERE schedule_code =
 		#{scheduleCode}
+		AND user_id = #{userId}
 	</delete>
 
 </mapper>

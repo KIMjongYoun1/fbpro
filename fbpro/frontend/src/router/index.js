@@ -11,11 +11,18 @@ import login from '../components/Login.vue'; // 상대 경로로 임포트
 import AdminScheduleInput from "../components/AdminScheduleInput.vue"; // 상대 경로
 import ScheduleCodeList from "../components/ScheduleCodeList.vue";
 import ShiftList from "../components/ShiftList.vue";
+import ScheduleDetail from '../components/ScheduleDetail.vue';
 
 
 
 
 const routes = [
+  {
+    path: '/schedule/details/:scheduleCode',
+    name: "ScheduleDetail",
+    component: ScheduleDetail,
+    props: true,
+  },
   {
     path:"/shift-types/all",
     name: "shift-types/all",

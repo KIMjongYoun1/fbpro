@@ -26,9 +26,12 @@ public interface ScheduleDAO {
 	public void updateSchedule(ScheduleVO schedule);
 	
 	// 스케쥴 삭제
-	public void deleteSchedule(String scheduleCode);
+	public void deleteSchedule(String scheduleCode, String userId);
 	
 	//스케쥴조회
 	public List<ScheduleVO> getSchedulesWithDetails(String userId);
+	
+	// 스케쥴 상세
+	public ScheduleVO getScheduleByCode(String scheduleCode);
 	
 }

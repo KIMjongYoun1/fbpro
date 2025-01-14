@@ -32,8 +32,8 @@ public class ScheduleService {
 		scheduleDAO.updateSchedule(shcedule);
 	}
 
-	public void deleteSchedule(String scheduleCode) {
-		scheduleDAO.deleteSchedule(scheduleCode);
+	public void deleteSchedule(String scheduleCode, String userId) {
+		scheduleDAO.deleteSchedule(scheduleCode, userId);
 	}
 
 	public List<ScheduleVO> getSchedulesWithDetails(String userId) {
@@ -73,7 +73,9 @@ public class ScheduleService {
 	    }
 	    return calendarSchedules;
 	}
-
-
+	// 스케쥴 상세
+	public ScheduleVO getScheduleByCode(String scheduleCode) {
+		return scheduleDAO.getScheduleByCode(scheduleCode);
+	};
 
 }

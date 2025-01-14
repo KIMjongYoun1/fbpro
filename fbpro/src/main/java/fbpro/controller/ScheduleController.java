@@ -57,6 +57,19 @@ public class ScheduleController {
 		System.out.println("배정리스트 조회 호출");
 		return scheduleService.getSchedulesForCalendar();
 	}
+	
+	// 스케쥴 코드 상세조회
+	   @GetMapping("/details/{scheduleCode}")
+	    public ScheduleVO getScheduleDetails(@PathVariable String scheduleCode) {
+	        System.out.println("스케쥴 코드 상세조회 호출");
+	        System.out.println("전달받은 scheduleCode: " + scheduleCode);
+
+	        ScheduleVO schedule = scheduleService.getScheduleByCode(scheduleCode);
+	        System.out.println("쿼리 결과: " + schedule);
+
+	        // ScheduleVO 객체를 JSON 형태로 반환
+	        return schedule;
+	    }
 
 	@PutMapping("/{scheduleCode}")
 	public String updateSchedule(@PathVariable String scheduleCode, @RequestBody ScheduleVO schedule) {
@@ -68,8 +81,8 @@ public class ScheduleController {
 	}
 
 	@DeleteMapping("/{scheduleCode}")
-	public String deleteSchedule(@PathVariable String scheduleCode) {
-		scheduleService.deleteSchedule(scheduleCode);
+	public String deleteSchedule(@PathVariable String scheduleCode, String userId) {
+		scheduleService.deleteSchedule(scheduleCode, userId);
 		return "스케쥴이 삭제되었습니다";
 	}
 
