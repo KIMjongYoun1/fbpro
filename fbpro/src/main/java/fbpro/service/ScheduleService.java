@@ -34,6 +34,7 @@ public class ScheduleService {
 
 	public void deleteSchedule(String scheduleCode, String userId) {
 		scheduleDAO.deleteSchedule(scheduleCode, userId);
+		
 	}
 
 	public List<ScheduleVO> getSchedulesWithDetails(String userId) {
